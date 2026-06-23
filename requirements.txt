@@ -1,0 +1,5 @@
+pandas
+requests
+numpy
+sqlite3
+streamlit
