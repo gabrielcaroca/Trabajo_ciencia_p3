@@ -2,6 +2,11 @@ import streamlit as st
 import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
+import os
+
+# Ruta absoluta a la BD (funciona desde cualquier rama)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DB_PATH  = os.path.join(BASE_DIR, "data", "dataset_final.db")
 
 # ── Configuración de la página ──────────────────────────────────
 st.set_page_config(
@@ -13,7 +18,7 @@ st.set_page_config(
 # ── Carga de datos ───────────────────────────────────────────────
 @st.cache_data
 def cargar_datos():
-    conn = sqlite3.connect("data/dataset_final.db")
+    conn = sqlite3.connect(DB_PATH)
     df = pd.read_sql_query("SELECT * FROM vista_dashboard", conn)
     conn.close()
     return df
