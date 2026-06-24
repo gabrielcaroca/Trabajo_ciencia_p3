@@ -1,9 +1,3 @@
-# Bases de datos generadas
-data/*.db
-
-# Dataset pesado de Kaggle
-data/*.csv
-
 # Variables de entorno
 docker/.env
 .env
