@@ -50,6 +50,10 @@ Trabajo_ciencia_p3/
 │   ├── meets.csv              # Dataset Kaggle (competencias)
 │   ├── gimnasio.db            # BD propia generada
 │   └── dataset_final.db      # BD final generada por ETL
+├── docs/
+│   └── arquitectura.md        # Documentación de arquitectura y decisiones técnicas
+├── tests/
+│   └── test_etl.py            # Tests automatizados del pipeline ETL
 └── docker/
     ├── Dockerfile             # Imagen Docker
     ├── docker-compose.yml     # Orquestación
@@ -67,7 +71,7 @@ Trabajo_ciencia_p3/
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tuusuario/Trabajo_ciencia_p3
+git clone https://github.com/gabrielcaroca/Trabajo_ciencia_p3
 cd Trabajo_ciencia_p3
 ```
 
@@ -97,6 +101,12 @@ python etl/powerlifting_etl.py
 streamlit run dashboards/app.py
 ```
 Abrir en el navegador: `http://localhost:8501`
+
+### 6. Ejecutar los tests
+```bash
+pip install pytest
+pytest tests/test_etl.py -v
+```
 
 ---
 
@@ -145,8 +155,32 @@ data = response.json()
 | Vista | Audiencia | Contenido |
 |---|---|---|
 | 📊 Ejecutiva | Gerencia | KPIs, top países, top federaciones, TotalKg |
-| 🔬 Técnica | Analistas | Distribución de pesos, Wilks, tasa de fallos |
+| 🔬 Técnica | Analistas | Distribución de pesos, Wilks, rendimiento por músculo |
 | 🏃 Operativa | Entrenadores | Niveles del gimnasio, músculos, tabla de atletas |
+
+---
+
+## 🧪 Tests automatizados
+
+Los tests verifican la integridad del pipeline ETL:
+
+| Test | Descripción |
+|---|---|
+| `test_gimnasio_db_existe` | Verifica que gimnasio.db existe |
+| `test_gimnasio_tiene_atletas` | Verifica que hay atletas registrados |
+| `test_gimnasio_columnas_requeridas` | Verifica columnas de la tabla |
+| `test_gimnasio_niveles_validos` | Verifica niveles correctos |
+| `test_dataset_final_existe` | Verifica que dataset_final.db existe |
+| `test_dataset_final_tiene_tabla` | Verifica tabla vista_dashboard |
+| `test_dataset_columna_muscle` | Verifica enriquecimiento desde API |
+| `test_dataset_sin_negativos` | Verifica limpieza de valores negativos |
+| `test_csv_existe` | Verifica que los CSV están presentes |
+
+---
+
+## 📚 Documentación adicional
+
+- [Arquitectura del sistema](docs/arquitectura.md) — Diagrama de flujo, decisiones técnicas y descripción de componentes
 
 ---
 
@@ -160,6 +194,7 @@ data = response.json()
 - **Matplotlib** — visualizaciones
 - **Docker** — containerización
 - **Git** — control de versiones
+- **Pytest** — testing automatizado
 
 ---
 
